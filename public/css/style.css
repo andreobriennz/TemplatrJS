@@ -1,0 +1,87 @@
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #1a1a1a;
+  line-height: 1.5;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.nav__brand {
+  font-weight: 700;
+  text-decoration: none;
+  color: inherit;
+}
+
+.nav__links a {
+  margin-left: 1.5rem;
+  text-decoration: none;
+  color: #333;
+}
+
+.nav__links a:hover {
+  text-decoration: underline;
+}
+
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: 60vh;
+}
+
+.footer {
+  text-align: center;
+  padding: 1.5rem;
+  color: #777;
+  border-top: 1px solid #eaeaea;
+  font-size: 0.9rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+}
+
+.form label {
+  margin-top: 1rem;
+  font-weight: 600;
+}
+
+.form input,
+.form textarea {
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font: inherit;
+}
+
+.form button {
+  margin-top: 1.5rem;
+  padding: 0.6rem 1.2rem;
+  background: #1a1a1a;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.form button:hover {
+  background: #333;
+}
+
+.success {
+  color: #16794a;
+  font-weight: 600;
+}

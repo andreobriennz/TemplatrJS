@@ -1,0 +1,22 @@
+{
+  "name": "express-ejs-boilerplate",
+  "version": "1.0.0",
+  "description": "Minimal Express + EJS prototyping boilerplate with reusable nav/footer partials",
+  "main": "server.js",
+  "scripts": {
+    "init": "node scripts/init.js",
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-session": "^1.19.0",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0",
+    "sequelize": "^6.37.8",
+    "sqlite3": "^6.0.1"
+  }
+}

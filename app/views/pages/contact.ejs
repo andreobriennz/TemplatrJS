@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../components/head') %>
+</head>
+<body>
+  <%- include('../components/nav') %>
+
+  <main class="container">
+    <h1>Contact</h1>
+
+    <% if (submitted) { %>
+      <p class="success">Thanks, <%= name %>! Your message has been received.</p>
+    <% } else { %>
+      <form action="/contact" method="POST" class="form">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+
+        <button type="submit">Send</button>
+      </form>
+    <% } %>
+
+    <section>
+      <h2>Messages</h2>
+      <% if (messages.length === 0) { %>
+        <p>No messages yet</p>
+      <% } else { %>
+        <% messages.reverse().forEach(m => { %>
+          <div>
+            <strong><%= m.name %>:</strong>
+            <p><%= m.message %></p>
+            <p><small><%= m.createdAt.toLocaleString() %></small></p>
+          </div>
+        <% }) %>
+      <% } %>
+    </section>
+  </main>
+
+  <%- include('../components/footer') %>
+</body>
+</html>

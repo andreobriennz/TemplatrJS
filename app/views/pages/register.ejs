@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><%- include('../components/head') %></head>
+<body>
+<%- include('../components/nav') %>
+<main class="container">
+    <h1>Register</h1>
+    <% if (error) { %><p class="error"><%= error %></p><% } %>
+    <form action="/register" method="POST" class="form">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name">
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+
+        <button type="submit">Register</button>
+    </form>
+</main>
+<%- include('../components/footer') %>
+</body>
+</html>
