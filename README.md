@@ -80,7 +80,7 @@ Notes:
 
 ### Working With Code Outside `app/` and `public/`
 
-Code outside these files is generally related to basic setup and config.
+Code outside these files is generally related to basic setup and settings.
 
 ## Structure
 
