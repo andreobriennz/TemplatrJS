@@ -1,7 +1,7 @@
 const express = require('express');
 const contactController = require('./controllers/contactController');
 const authController = require('./controllers/authController');
-const { requireAuth } = require('../middleware');
+const { requireAuth } = require('./middleware');
 
 const router = express.Router();
 
