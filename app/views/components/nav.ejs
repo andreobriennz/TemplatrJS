@@ -7,7 +7,7 @@
       <a href="/contact">Contact</a>
 
       <% if (typeof user !== 'undefined' && user) { %>
-        <form action="/logout" method="POST" style="display:inline">
+        <form action="/logout" method="POST" style="display:inline;margin:0">
           <button type="submit">Logout (<%= user.email %>)</button>
         </form>
       <% } else { %>
