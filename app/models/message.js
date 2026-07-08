@@ -1,11 +1,10 @@
 const { DataTypes } = require('sequelize');
 const db = require('../../db');
-import User from '../models/user';
+const User = require('../models/user');
 
 const Message = db.define('Message', {
+    name: DataTypes.STRING,
     message: DataTypes.STRING,
 });
-
-Message.belongsTo(User, { foreignKey: 'userId' });
 
 module.exports = Message;

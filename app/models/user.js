@@ -1,7 +1,7 @@
 // models/user.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../db');
-import Message from '../models/message';
+const Message = require('../models/message');
 
 const User = sequelize.define('User', {
     email: {
@@ -19,7 +19,5 @@ const User = sequelize.define('User', {
         allowNull: true,
     },
 });
-
-Message.belongsTo(User, { foreignKey: 'messageId' });
 
 module.exports = User;
