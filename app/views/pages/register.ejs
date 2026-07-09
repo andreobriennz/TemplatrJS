@@ -2,23 +2,32 @@
 <html lang="en">
 <head><%- include('../components/head') %></head>
 <body>
-<%- include('../components/nav') %>
-<main class="container">
-    <h1>Register</h1>
-    <% if (error) { %><p class="error"><%= error %></p><% } %>
-    <form action="/register" method="POST" class="form">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name">
-
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
-
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
-
-        <button type="submit">Register</button>
-    </form>
-</main>
-<%- include('../components/footer') %>
+  <%- include('../components/nav') %>
+  <main class="responsive">
+    <div class="space"></div>
+    <article class="round border form-panel">
+      <h4>Register</h4>
+      <% if (error) { %><p class="error"><%= error %></p><% } %>
+      <form action="/register" method="POST">
+        <div class="field label border">
+          <input type="text" id="name" name="name">
+          <label for="name">Name</label>
+        </div>
+        <div class="field label border">
+          <input type="email" id="email" name="email" required>
+          <label for="email">Email</label>
+        </div>
+        <div class="field label border">
+          <input type="password" id="password" name="password" required>
+          <label for="password">Password</label>
+        </div>
+        <div class="space"></div>
+        <button type="submit" class="responsive">Register</button>
+      </form>
+      <div class="space"></div>
+      <p class="center-align">Already have an account? <a href="/login">Login</a></p>
+    </article>
+  </main>
+  <%- include('../components/footer') %>
 </body>
 </html>

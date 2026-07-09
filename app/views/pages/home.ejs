@@ -6,9 +6,17 @@
 <body>
   <%- include('../components/nav') %>
 
-  <main class="container">
-    <h1>Welcome</h1>
-    <p>This is a minimal Express + EJS boilerplate. Edit <code>pages/home.ejs</code> to get started.</p>
+  <main class="responsive">
+    <div class="space"></div>
+    <article class="round">
+      <h3>Welcome to MySite</h3>
+      <p>A minimal Express + EJS boilerplate. Edit <code>pages/home.ejs</code> to get started.</p>
+      <div class="space"></div>
+      <div class="row gap">
+        <a href="/about" class="button">Learn More</a>
+        <a href="/register" class="button border">Get Started</a>
+      </div>
+    </article>
   </main>
 
   <%- include('../components/footer') %>
