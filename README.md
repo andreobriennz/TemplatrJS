@@ -33,6 +33,20 @@ If you're not familiar with EJS, it's a simple HTML templating language. You can
 
 ### Working With CSS, JavaScript and Images
 
+#### CSS: Beer CSS
+
+TemplatrJS uses [Beer CSS](https://www.beercss.com/) — a lightweight CSS framework built on Material Design 3. It provides components, layout utilities, and a consistent design system out of the box.
+
+**Key things to know:**
+- Use Beer CSS utility classes directly on HTML elements — e.g. `class="round border"`, `class="row gap"`, `class="responsive"`
+- Forms use floating labels: put the `<label>` *after* the `<input>`, not before, and wrap both in `<div class="field label border">`
+- `<b>` tags are styled as chips/badges by Beer CSS — use `<strong>` for bold text instead
+- `<main class="responsive">` constrains page content to a readable max-width and centres it
+
+Add custom overrides in `public/css/style.css`. It loads after Beer CSS so your rules take precedence.
+
+See the [Beer CSS docs](https://www.beercss.com/) for the full component reference.
+
 ### Working With Models and SQL
 
 https://sequelize.org/
