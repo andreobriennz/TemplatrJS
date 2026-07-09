@@ -7,9 +7,20 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
 }
 
+/* Beer CSS article.round uses ~28px radius; padding must clear the corner curve */
+article.round {
+  padding: 1.75rem 2rem;
+}
+
 .form-panel {
   max-width: 520px;
   margin: 0 auto;
+  padding: 2rem 2.25rem;
+}
+
+/* Breathing room between form panel title and first input */
+.form-panel > h4 {
+  margin-bottom: 1.25rem;
 }
 
 form {
@@ -19,6 +30,11 @@ form {
 .comment-list {
   max-width: 520px;
   overflow: hidden;
+}
+
+/* More horizontal padding so text clears the rounded corners */
+.comment-list .padding {
+  padding: 1rem 1.25rem;
 }
 
 .comment-list .padding p {
