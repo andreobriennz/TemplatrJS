@@ -7,6 +7,7 @@ const passport = require('./passport');
 
 const routes = require('./app/routes');
 const { db } = require('./app/models');
+const { generateCsrfToken, verifyCsrfToken } = require('./app/middleware');
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(passport.session());
 
 app.use((req, res, next) => {
     res.locals.user = req.user;
+    res.locals.csrfToken = generateCsrfToken(req);
     next();
 });
 
@@ -31,6 +33,7 @@ app.set('views', [
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
+app.use(verifyCsrfToken);
 
 app.use('/', routes);
 

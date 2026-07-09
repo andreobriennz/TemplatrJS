@@ -13,7 +13,8 @@ async function register(req, res) {
     await User.create({ email, passwordHash, name });
     res.redirect('/login');
   } catch (err) {
-    res.render('register', { title: 'Register', error: err.message });
+    const message = err.errors ? err.errors.map(e => e.message).join(', ') : err.message;
+    res.render('register', { title: 'Register', error: message });
   }
 }
 

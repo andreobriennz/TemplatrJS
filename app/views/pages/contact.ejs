@@ -6,40 +6,52 @@
 <body>
   <%- include('../components/nav') %>
 
-  <main class="container">
-    <h1>Contact</h1>
+  <main class="responsive">
+    <div class="space"></div>
+    <h3>Contact</h3>
 
     <% if (submitted) { %>
-      <p class="success">Thanks, <%= name %>! Your message has been received.</p>
+      <article class="round border form-panel">
+        <p>Thanks, <strong><%= name %></strong>! Your message has been received.</p>
+      </article>
     <% } else { %>
-      <form action="/contact" method="POST" class="form">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" required>
-
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required>
-
-        <label for="message">Message</label>
-        <textarea id="message" name="message" rows="5" required></textarea>
-
-        <button type="submit">Send</button>
+      <form action="/contact" method="POST">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <div class="field label border">
+          <input type="text" id="name" name="name" required>
+          <label for="name">Name</label>
+        </div>
+        <div class="field label border">
+          <input type="email" id="email" name="email" required>
+          <label for="email">Email</label>
+        </div>
+        <div class="field label textarea border">
+          <textarea id="message" name="message" rows="5" required></textarea>
+          <label for="message">Message</label>
+        </div>
+        <div class="space"></div>
+        <button type="submit">Send Message</button>
       </form>
     <% } %>
 
-    <section>
-      <h2>Messages</h2>
-      <% if (messages.length === 0) { %>
-        <p>No messages yet</p>
-      <% } else { %>
-        <% messages.reverse().forEach(m => { %>
-          <div>
-            <strong><%= m.name %>:</strong>
-            <p><%= m.message %></p>
-            <p><small><%= m.createdAt.toLocaleString() %></small></p>
-          </div>
-        <% }) %>
+    <div class="space"></div>
+    <% if (user) { %>
+      <% if (messages && messages.length > 0) { %>
+        <h5>Your Messages</h5>
+        <div class="comment-list border round">
+          <% [...messages].reverse().forEach((m, i) => { %>
+            <% if (i > 0) { %><div class="divider"></div><% } %>
+            <div class="padding">
+              <strong><%= m.name %></strong>
+              <small class="secondary-text"> · <%= m.createdAt.toLocaleString() %></small>
+              <p><%= m.message %></p>
+            </div>
+          <% }) %>
+        </div>
       <% } %>
-    </section>
+    <% } else { %>
+      <p class="secondary-text"><%= messageCount %> message<%= messageCount === 1 ? '' : 's' %> received so far.</p>
+    <% } %>
   </main>
 
   <%- include('../components/footer') %>
