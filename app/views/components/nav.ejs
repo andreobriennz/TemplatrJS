@@ -8,6 +8,7 @@
 
     <% if (typeof user !== 'undefined' && user) { %>
       <form action="/logout" method="POST">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <button type="submit" class="transparent">Logout (<%= user.email %>)</button>
       </form>
     <% } else { %>

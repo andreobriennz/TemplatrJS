@@ -9,6 +9,7 @@
       <h4>Register</h4>
       <% if (error) { %><p class="error"><%= error %></p><% } %>
       <form action="/register" method="POST">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <div class="field label border">
           <input type="text" id="name" name="name">
           <label for="name">Name</label>
