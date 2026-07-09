@@ -1,17 +1,18 @@
-# Express + EJS Boilerplate
+# TemplatrJS
 
-## What is TemplatrJS?
+A minimal Node.js boilerplate for quick prototyping — auth, a contact form, a database, and a UI framework included out of the box.
 
-Minimal prototyping boilerplate:
-- EJS templating
-- Express server, EJS views with shared nav/footer partials, and a working contact form.
+<img src=".github/screenshot.png" width="32.5%"> <img src=".github/screenshot-register.png" width="32.5%"> <img src=".github/screenshot-contact.png" width="32.5%">
 
-**Note: This is still under development. While it works, edge cases have not been tested and also the code may change suddenly.**
+**Stack:** Node.js 18+ · Express · EJS · SQLite via Sequelize · Passport.js · Beer CSS
+
+> **Note:** This is a prototyping boilerplate, not production-ready. Edge cases are untested.
 
 ## Setup
 
 ```
 npm install
+npm run init    # generates .env with a session secret (required for auth)
 npm run dev
 ```
 
@@ -21,15 +22,26 @@ Use `npm run dev` instead of `npm start` to auto-restart on file changes (uses N
 
 ## How Do I Use It?
 
-90% of the time you work in the `app/` folder for everything, except public files (e.g. CSS, JavaScript and images) which in the `public` folder. 
+90% of the time you work in the `app/` folder. Public assets (CSS, JavaScript, images) go in `public/`.
 
-### Creating and editing views:
+### Creating and Editing Views
 
-`app/views` contains the EJS files. `app.views/pages` is for the pages and is where Express will look when trying to load pages, so putting pages somewhere else may not work.
-`app.views/components` is for partials which you want to include in pages but not have mixed in directly with the main page code, such as a nav or footer.
-If you're not familiar with EJS, it's a simple HTML templating language. You can [learn more about EJS here](https://ejs.co/).
+`app/views/pages/` contains the EJS page files — Express looks here when rendering pages.  
+`app/views/components/` is for partials (nav, footer, head) that you include across pages.
+
+If you're not familiar with EJS, it's a simple HTML templating language. [Learn more about EJS here](https://ejs.co/).
 
 ### Adding Routes
+
+Routes live in `app/routes.js`. Add a new route like this:
+
+```javascript
+app.get('/yourpage', (req, res) => {
+  res.render('yourpage', { title: 'Your Page' });
+});
+```
+
+For POST routes or anything with meaningful logic, consider extracting it into a controller (see [Controllers](#controllers)).
 
 ### Working With CSS, JavaScript and Images
 
@@ -49,21 +61,20 @@ See the [Beer CSS docs](https://www.beercss.com/) for the full component referen
 
 ### Working With Models and SQL
 
-https://sequelize.org/
+TemplatrJS uses [Sequelize](https://sequelize.org/) as its ORM.
 
 #### Create a Table
 
-You can technically define a table with Sequelize anywhere, however it's recommended you create it in a dedicated file in `app/models`. Have a look at `models/message.js`, `models/user.js` for an example of a simple model can look like.
+Define models in `app/models/`. See `models/message.js` and `models/user.js` for examples.
 
 ```javascript
-const Person = db.define('Message', {
+const Person = db.define('Person', {
     name: DataTypes.STRING,
     email: DataTypes.STRING,
-    message: DataTypes.STRING,
 });
 ```
 
-Because of how TemplatrJS works, you'll also need to register your model by adding it to `app/models/index.js`. For example, if you created a `Person` model it might look something like this:
+Register the model in `app/models/index.js` so the rest of the app can use it:
 
 ```javascript
 const Person = require('./person');
@@ -71,59 +82,60 @@ module.exports = { db, Person, ... };
 ```
 
 Notes:
-- Sequelize is only set up for SQLite currently as its designed primarily for prototyping. However, Sequelize does support other database systems. Check out the [Seqelize docs](https://sequelize.org/docs/v7/category/databases/) for more information.
-- If you want to test changes without saving perminantly to a database, Sequelize supports saving to RAM so the changes will be cleared when you restart the app. To do this, update `storage` in `db.js` to be `':memory:'`
-- While you can use the `models/` folder however you want, I'd recommend keeping it for SQL models and using something else, such as a services folder, for API calls etc. This is up to you, however.
+- Sequelize is only set up for SQLite, as TemplatrJS is designed for prototyping. It does support other databases — see the [Sequelize docs](https://sequelize.org/docs/v7/category/databases/).
+- To avoid writing permanently to a file during development, set `storage` in `db.js` to `':memory:'` — data resets on every restart.
 
 ### Controllers
 
-Controllers are entirely optional. For quick and simple prototyping and experiments you have the option to just put your code in `routes.js` if you want to.
-However, if you find this is becoming messy you can extract the logic out into 
-
+Controllers are entirely optional. For quick prototyping you can put logic directly in `routes.js`. When that becomes messy, extract it into a file in `app/controllers/`. See `app/controllers/contactController.js` for an example.
 
 ### Handling Logins With Passport.js
 
-Passport.js is set up, but you'll need to run `npm run init` to have it generate a `.env` file with a server key. Passport.js isn't needed for anything, so if you don't need any kind of auth then feel free to delete it.
+Passport.js is set up, but you'll need to run `npm run init` to generate a `.env` file with a session secret. If you don't need auth, feel free to delete it — nothing depends on it.
 
-Notes:
-- Passport.js supports a range of log in types, but because TemplatrJS is designed for simplicity and prototyping it only supports email/password out of the box. Check out the Passport.js docs if you want to know how to implement other types.
+Passport.js supports many login strategies, but TemplatrJS only includes email/password out of the box. See the [Passport.js docs](https://www.passportjs.org/) for other strategies.
 
 ### Services
 
-- Not currently implemented 
+`app/services/` is the recommended place for external API calls and business logic that doesn't belong in a controller or model. See `app/services/jsonplaceholder.api.ts` for an example.
 
 ### Working With Code Outside `app/` and `public/`
 
-Code outside these files is generally related to basic setup and settings.
+Code outside these folders is related to basic setup: `server.js`, `db.js`, `passport.js`, and `settings.ts`.
 
 ## Structure
 
 ```
 app/
     routes.js              routes
-    views/              EJS template files
+    middleware.js          session and Passport.js setup
+    views/                 EJS template files
         pages/
             home.ejs
             about.ejs
             contact.ejs
-        components/       
+            login.ejs
+            register.ejs
+        components/
             head.ejs
             nav.ejs
             footer.ejs
-    models/               optional: SQL table definitions
-    controllers/          optional: extract logic that doesn't belong in `routes.js`
-    middleware.js         optional: currently only used for Passport.js
-    services/             optional: API calls
+    models/                Sequelize table definitions
+        message.js
+        user.js
+        index.js
+    controllers/           optional: extract logic out of routes.js
+    services/              optional: API calls and external integrations
 public/
-    css/style.css
+    css/style.css          custom CSS overrides (loads after Beer CSS)
 ```
 
-## Adding a page
+## Adding a Page
 
-1. Create `app/pages/yourpage.ejs`, include the partials the same way `about.ejs` does.
+1. Create `app/views/pages/yourpage.ejs`, using the same partial includes as `about.ejs`.
 2. Add a route in `routes.js`: `app.get('/yourpage', (req, res) => res.render('yourpage', { title: 'Your Page' }));`
 3. Add a link in `nav.ejs`.
 
-## Contact form
+## Contact Form
 
-`POST /contact` in `routes.js` currently just logs the submission to the console and re-renders the page with a success message. Swap that block out for real handling (save to a database, send an email, call an API) when you're ready to go past prototype stage.
+`POST /contact` saves the submission to the database and re-renders the page with a success message. Swap the handler in `routes.js` for real processing (send an email, call an API, etc.) when you're ready to go beyond prototype stage.
