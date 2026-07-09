@@ -1,7 +1,5 @@
-// models/user.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../../db');
-const Message = require('../models/message');
 
 const User = sequelize.define('User', {
     email: {

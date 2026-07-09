@@ -9,6 +9,7 @@
       <h4>Login</h4>
       <% if (error) { %><p class="error"><%= error %></p><% } %>
       <form action="/login" method="POST">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <div class="field label border">
           <input type="email" id="email" name="email" required>
           <label for="email">Email</label>
