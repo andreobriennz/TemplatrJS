@@ -3,18 +3,26 @@
 <head><%- include('../components/head') %></head>
 <body>
   <%- include('../components/nav') %>
-  <main class="container">
-    <h1>Login</h1>
-    <% if (error) { %><p class="error"><%= error %></p><% } %>
-    <form action="/login" method="POST" class="form">
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" required>
-
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" required>
-
-      <button type="submit">Login</button>
-    </form>
+  <main class="responsive">
+    <div class="space"></div>
+    <article class="round border form-panel">
+      <h4>Login</h4>
+      <% if (error) { %><p class="error"><%= error %></p><% } %>
+      <form action="/login" method="POST">
+        <div class="field label border">
+          <input type="email" id="email" name="email" required>
+          <label for="email">Email</label>
+        </div>
+        <div class="field label border">
+          <input type="password" id="password" name="password" required>
+          <label for="password">Password</label>
+        </div>
+        <div class="space"></div>
+        <button type="submit" class="responsive">Login</button>
+      </form>
+      <div class="space"></div>
+      <p class="center-align">Don't have an account? <a href="/register">Register</a></p>
+    </article>
   </main>
   <%- include('../components/footer') %>
 </body>
